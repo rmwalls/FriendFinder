@@ -1,2 +1,2 @@
-# FriendFiner
+# FriendFinder
 Express Homework
