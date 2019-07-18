@@ -1,3 +1,4 @@
+
 // Routes
 // =============================================================
 var friends = require('../data/friends.js'); //get correct path
@@ -10,7 +11,7 @@ module.exports = function(app) {
   
 // if user goes to /api/friends, send them the variable data as json
 app.get("/api/friends", function(req, res) {
-  res.json(friends);
+  res.json(pals);
 });
 
 // post new responses to the pals array do logic

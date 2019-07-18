@@ -4,17 +4,19 @@
 var express = require("express");
 var path = require("path");
 
-// Sets up the Express App
+// Sets up Express and Path
 // =============================================================
+var express = require("express");
 var app = express();
-
+var path = require("path");
+console.log("line 10");
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+console.log("line16");
 //Routes
-require(".app/routing/apiRoutes")(app);
-require(".app/routing/htmlRoutes")(app);
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 
 // Starts the server to begin listening
