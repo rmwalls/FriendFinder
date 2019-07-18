@@ -7,10 +7,9 @@ module.exports = function (app) {
     res.json(friends);
   });
 
-
   // handle the post request from the survey form
-  app.post("pals", function (req, res) {
-
+  app.post("friends", function (req, res) {
+    console.log("posted pals" + pals);
     var surveyResults = req.body; // save user answers (scores)
     console.log("line 21" + surveyResults);
     // convert the values to integers
