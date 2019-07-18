@@ -1,47 +1,52 @@
+var friends = require('../data/friends.js'); 
 
-// Routes
-// =============================================================
-var friends = require('../data/friends.js'); //get correct path
-var totalDifference; //use Math.abs()
-var bestMatch; //lowest totalDifference, if tie....random or first
+module.exports = function (app) {
+
+  // when 'API Friends List' is clicked show variable data as json, this works
+  app.get("/api/friends", function (req, res) {
+    res.json(friends);
+  });
 
 
-module.exports = function(app) {
-    // API GET Request
-  
-// if user goes to /api/friends, send them the variable data as json
-app.get("/api/friends", function(req, res) {
-  res.json(pals);
-});
+  // handle the post request from the survey form
+  app.post("pals", function (req, res) {
 
-// post new responses to the pals array do logic
-app.post("/api/friends", function(req, res) {
-    // req.body is available since we're using the body parsing middleware
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    }
-    else {
-      return;
+    var surveyResults = req.body; // save user answers (scores)
+    console.log("line 21" + surveyResults);
+    // convert the values to integers
+    for (var i = 0; i < surveyResults.length; i++) {
+      surveyResults[i] = parseInt(surveyResults[i]);
+      console.log("25 results are " + surveyResults);
     }
   })
-}
 
-// Determine the user's most compatible friend using the following as a guide:
-//   Convert each user's results into a simple array of numbers (ex: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]).
-//   With that done, compare the difference between current user's scores against those from other users, question by question. 
-//Add up the differences to calculate the totalDifference.
+/*
+  totalDifference = 999999; // start with a high dummy value
+  bestMatch = 0; // assume the first pet is the best match then adjust later
 
-// Example:
+  // loop through the pals array
+  for (i = 0; i < pals.length; i++) {
+    var tempDifference = difference(surveyResults, pals[i].scores);
+    console.log("difference between", surveyResults, "and", pals[i].name, pals[i].scores, "=", tempDifference);
 
-// User 1: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]
-// User 2: [3, 2, 6, 4, 5, 1, 2, 5, 4, 1]
-// Total Difference: 2 + 1 + 2 = 5
+      if (tempDifference < totalDifference) {
+        totalDifference = tempDifference;
+        bestMatch = i;
+      }
+  } //end for
 
-// Remember to use the absolute value of the differences. 
-// Put another way: no negative solutions! Your app should calculate both 5-3 and 3-5 as 2, and so on.
-// The closest match will be the user with the least amount of difference.
+  function difference(array1, array2) {
 
-// Once you've found the current user's most compatible friend, display the result as a modal pop-up.
+    // differenceAmount holds the difference between array values
+    var differenceAmount = 0;
 
-// The modal should display both the name and picture of the closest match.
+      for (var i = 0; i < array1.length; i++) {
+        differenceAmount += Math.abs(array1[i] - array2[i]);
+      }
+    return differenceAmount;
+  }
+
+  // send the bestMatch back to the html page in response to the post
+  res.send(pals[bestMatch]);
+  */
+};
