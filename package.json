@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rmwalls/FriendFiner.git"
+    "url": "git+https://github.com/rmwalls/FriendFinder.git"
   },
   "author": "Robbi Walls",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rmwalls/FriendFiner/issues"
+    "url": "https://github.com/rmwalls/FriendFinder/issues"
   },
-  "homepage": "https://github.com/rmwalls/FriendFiner#readme",
+  "homepage": "https://github.com/rmwalls/FriendFinder#readme",
   "dependencies": {
     "express": "^4.17.1"
   }
