@@ -16,4 +16,4 @@ pals.push(new Pal("Sally Brown", "photos/Sally_Brown.png", [4, 4, 1, 4, 2, 3, 4,
 
 console.log("my pals in friends.js " + pals[2].name);
 //console.log("WHAT");
-//module.exports = friends;
+module.exports = pals;
