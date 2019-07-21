@@ -1,48 +1,50 @@
+const path = require("path")
 let pals = require('../data/friends.js'); // get the pals from the constructor
 var newPalScores = 0; //scores from survey.html
 var answers; //set up a place for the answers
+var totalDifference = 0; // use to store difference in scores between pals
 
-console.log("in apiRoutes, line 3");
+console.log("in apiRoutes, line 7");
 module.exports = function (app) {
-  // when 'API Friends List' is clicked show variable data as json, this WAS working
+  // when 'API Friends List' is clicked show variable data as json, this works
   app.get("/api/friends", function (req, res) {
     res.json(pals);
   }); //end appget
 
-  console.log("in apiRoutes, line 10");
+  console.log("in apiRoutes, line 14");
   // handle the post request from the survey form
   app.post("/api/friends", function (req, res) { //changed from friends to answers 6:11pm, back to friends 7:56pm
-    console.log("line 12, posted pals" + pals);
 
     let newPal = { //do stuff with the user entry
       name: "",
       photo: "",
-      palDiff: 1000
+      palDiff: ""
     }; //end newPal
 
-    console.log(newPal);
-    answers = req.body; // save user answers (scores)
-    console.log("line 20" + answers);
+    answers = req.body; // user answers sent from survey.html
     newPalScores = answers.scores;
-    console.log("line22, scores = " + newPalScores);
+    console.log("line 28, new pal scores = " + newPalScores);
+    console.log("line 29 new Pal name is " + answers.name);
+
+    // loop through the pals array
+    for (var i = 0; i < pals.length; i++) {
+      //console.log("pals[i] is " + pals[i].name);
+      totalDifference = 0;
+      for (var j = 0; j < pals[i].scores[j]; j++) {
+        totalDifference += Math.abs(parseInt(newPalScores[j]) - parseInt(pals[i].scores[j]));
+        //console.log("total difference is " + totalDifference);
+        if (totalDifference <= newPal.palDiff) {
+          newPal.name = pals[i].name;
+          newPal.photo = pals[i].photo;
+          newPal.palDiff = totalDifference;
+
+          console.log("Best match is " + newPal.name);
+        } //end if
+      } //end for inner
+    } //end for outer
+    pals.push(answers);
+
+    res.json(newPal);
+  }) //end appPost
   
-
-  totalDifference = 0; // use to store difference in scores between pals
-
-  // loop through the pals array
-  for (var i = 0; i < pals.length; i++) {
-    console.log(pals[i]);
-    for (var j = 0; j < pals[i].scores[j]; j++) {
-      totalDifference = +Math.abs(parseInt(newPalScores[j]) - parseInt(pals[i].scores[j]));
-      if (totalDifference <= newPal.palDiff) {
-        newPal.name = pals[i].name;
-        newPal.photo = pals[i].photo;
-        newPal.palDiff = totalDifference;
-      } //end if
-    } //end for inner
-  } //end for outer
-}) //end appPost
-  //pals.push(answers);
-
-  //res.json(newPal);
 }; //end module
