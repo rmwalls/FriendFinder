@@ -13,7 +13,7 @@ module.exports = function (app) {
 
   console.log("in apiRoutes, line 14");
   // handle the post request from the survey form
-  app.post("/api/friends", function (req, res) { //changed from friends to answers 6:11pm, back to friends 7:56pm
+  app.post("/api/friends", function (req, res) { 
 
     let newPal = { //do stuff with the user entry
       name: "",
@@ -32,11 +32,14 @@ module.exports = function (app) {
       totalDifference = 0;
       for (var j = 0; j < pals[i].scores[j]; j++) {
         totalDifference += Math.abs(parseInt(newPalScores[j]) - parseInt(pals[i].scores[j]));
-        //console.log("total difference is " + totalDifference);
+        console.log("total difference is " + totalDifference);
         if (totalDifference <= newPal.palDiff) {
           newPal.name = pals[i].name;
+          console.log(NewPal.name);
           newPal.photo = pals[i].photo;
+          console.log(newPal.photo);
           newPal.palDiff = totalDifference;
+          console.log("diff = " + newPal.palDiff);
 
           console.log("Best match is " + newPal.name);
         } //end if
